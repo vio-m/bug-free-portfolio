@@ -1,0 +1,48 @@
+<!-- register.ejs -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/navbar.css">
+  <link rel="stylesheet" href="/css/register.css">
+</head>
+<body>
+  <header>
+    <%- include('navbar') %>
+  </header>
+
+  <% if (flash && flash.success) { %>
+    <p><%= flash.success %></p>
+  <% } else if (flash && flash.error) { %>
+    <p><%= flash.error %></p>
+  <% } %>
+
+  <section id="register">
+    
+    <div class="register-container">
+        <h1>Register</h1>
+
+        <form action="/register" method="POST">
+          <div>
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+          <div>
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div>
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+          </div>
+          <button type="submit">Register</button>
+        </form>
+        
+        <a href="/login">Login</a>
+    </div>
+
+  </section>
+
+</body>
+</html>

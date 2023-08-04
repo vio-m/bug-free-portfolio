@@ -1,0 +1,58 @@
+<!-- admin.ejs -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ADMIN</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/navbar.css">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li>
+                <form action="/logout?_method=DELETE" method="POST">
+                    <button type="submit">Log Out</button>
+                </form>
+            </li>
+        </ul>
+    </nav>
+  </header>
+
+  <section id="admin" class="admin">
+    <div>
+        <h1><%= uniqueVisitors.length %> Unique Visitors</h1>
+        <form action="/delete" method="POST">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Select</th>
+                        <th>Visitor</th>
+                        <th>IP Address</th>
+                        <th>OS / browser</th>
+                        <th>Last Visit</th>
+                    </tr>
+                </thead>
+                <% uniqueVisitors.forEach((visitor, index) => { %>
+                    <tr class="<%= index % 2 === 0 ? 'light-row' : 'dark-row' %>">
+                        <td>
+                            <% const checkboxId = 'checkbox-' + visitor.v_id; %>
+                            <input type="checkbox" name="selectedVisitors" value="<%= visitor.v_id %>" id="<%= checkboxId %>">
+                            <label for="<%= checkboxId %>"></label>
+                        </td>
+                        <td><%= visitor.v_id %></td>
+                        <td><%= visitor.ip %></td>
+                        <td><%= visitor.userAgent %></td>
+                        <td><%= formatDateTime(visitor.timestamp) %></td>
+                    </tr>
+                <% }); %>
+            </table>
+            <button type="submit" onclick="{console.log('clicked')}">Delete Selected</button>
+        </form>
+    </div>
+  </section>
+
+</body>
+</html>

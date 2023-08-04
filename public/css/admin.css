@@ -1,0 +1,14 @@
+#admin {
+    background-color: #dcdcdc;
+    color: black;
+    overflow-y: scroll;
+}
+thead {
+    background-color: #999;
+}
+.light-row {
+    background-color: #f2f2f2; /* Light color for even rows */
+}
+.dark-row {
+    background-color: #dcdcdc; /* Dark color for odd rows */
+}

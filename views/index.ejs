@@ -1,0 +1,106 @@
+<!-- views/index.ejs -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Portfolio</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/parallax.css">
+    <link rel="stylesheet" type="text/css" href="slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
+</head>
+<body>
+  <header>
+    <%- include('navbar') %>
+  </header>
+
+  <section id="home">
+    <div class="parallax-content" data-speed="0.0">
+      <div class="container">
+        <div>Welcome to My Portfolio</div> 
+      </div>  
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="parallax-content" data-speed="0.0">
+    <div class="container">
+      <h2>About Me</h2>
+    </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="parallax-content" data-speed="0.0">
+        <div class="container">
+            <div id="textwrap">
+                <div id="textblock"></div>
+            </div>
+            <div id="skills-messages-container"> </div>
+        </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="parallax-content" data-speed="0.0">
+        <div class="container">
+            <div class="carousel">
+                <div class="individual-project">
+                    <img src="/images/1.jpg" alt="Project 1">
+                    <p>Project 1 description</p>
+                </div>
+                <div class="individual-project">
+                    <img src="/images/2.jpg" alt="Project 2">
+                    <p>Project 2 description</p>
+                </div>
+                <div class="individual-project">
+                    <img src="/images/3.jpg" alt="Project 3">
+                    <p>Project 3 description</p>
+                </div>
+                <div class="individual-project">
+                    <img src="/images/4.jpg" alt="Project 4">
+                    <p>Project 4 description</p>
+                </div>
+                <div class="individual-project">
+                    <img src="/images/5.jpg" alt="Project 5">
+                    <p>Project 5 description</p>
+                </div>
+                <div class="individual-project">
+                    <img src="/images/6.png" alt="Project 6">
+                    <p>Project 6 description</p>
+                </div>
+            </div>
+        </div>
+    </div>
+  </section>
+
+  <footer>
+    <%- include('footer') %>
+  </footer>
+
+
+  <!-- scripts -->
+  <script>
+    window.addEventListener('scroll', () => {
+      const scrollPos = window.scrollY;
+      const parallaxElements = document.querySelectorAll('.parallax-content');
+  
+      parallaxElements.forEach((element) => {
+        const speed = parseFloat(element.dataset.speed); // Parse data-speed as a number
+        const yPos = -scrollPos * speed;
+        element.style.transform = `translateY(${yPos}px)`;
+        //console.log(scrollPos, speed, yPos); // Log values inside the forEach loop
+      });
+    });
+  </script>
+  <script src="/js/smooth-scroll.js"></script>
+  <script src="/js/navbar.js"></script>
+  <script src="/js/skills.js"></script>
+  <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+  <script type="text/javascript" src="slick/slick.min.js"></script>
+  <script src="/js/carousel.js"></script>
+
+</body>
+</html>
