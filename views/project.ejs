@@ -1,0 +1,40 @@
+<!-- views/project.ejs -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= project.title %></title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <!-- Add your CSS links and other head content here -->
+</head>
+
+<body>
+
+    <header>
+        <%- include('navbar') %>
+    </header>
+
+    <main>
+        <h2><%= project.title %></h2>
+        <p><%= project.description %></p>
+        
+    </main>
+
+    <!-- scripts -->
+    <script>
+        window.addEventListener('scroll', () => {
+        const scrollPos = window.scrollY;
+        const parallaxElements = document.querySelectorAll('.parallax-content');
+    
+        parallaxElements.forEach((element) => {
+            const speed = parseFloat(element.dataset.speed); // Parse data-speed as a number
+            const yPos = -scrollPos * speed;
+            element.style.transform = `translateY(${yPos}px)`;
+            //console.log(scrollPos, speed, yPos); // Log values inside the forEach loop
+        });
+        });
+    </script>
+    <script src="/js/smooth-scroll.js"></script>
+    <script src="/js/navbar.js"></script>
+</body>
+</html>

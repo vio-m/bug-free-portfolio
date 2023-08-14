@@ -47,47 +47,23 @@
         <div class="parallax-content" data-speed="0.0">
             <div class="container">
                 <div class="carousel">
-                    <div class="individual-project">
-                        <img src="/images/1.jpg" alt="Project 1">
-                        <div class="project-title">Project Title</div>
-                        <div class="project-description">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</div>
-                    </div>
-                    <div class="individual-project">
-                        <img src="/images/2.jpg" alt="Project 2">
-                        <div class="project-title">Project Title</div>
-                        <div class="project-description">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</div>
-                    
-                    </div>
-                    <div class="individual-project">
-                        <img src="/images/3.jpg" alt="Project 3">
-                        <div class="project-title">Project Title</div>
-                        <div class="project-description">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</div>
-                    
-                    </div>
-                    <div class="individual-project">
-                        <img src="/images/4.jpg" alt="Project 4">
-                        <div class="project-title">Project Title</div>
-                        <div class="project-description">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</div>
-                    
-                    </div>
-                    <div class="individual-project">
-                        <img src="/images/5.jpg" alt="Project 5">
-                        <div class="project-title">Project Title</div>
-                        <div class="project-description">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</div>
-                    
-                    </div>
-                    <div class="individual-project">
-                        <img src="/images/6.png" alt="Project 6">
-                        <div class="project-title">Project Title</div>
-                        <div class="project-description">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</div>
-                    
-                    </div>
+                    <% projects.forEach(project => { %>
+                        <div class="individual-project">
+                            <a href="/projects/<%= project._id %>">
+                                <!-- Add project details here -->
+                                <img src="/images/placeholder.jpg" alt="<%= project.title %>">
+                                <div class="project-title"><%= project.title %></div>
+                                <div class="project-description"><%= project.description %></div>
+                            </a>
+                        </div>
+                    <% }) %>
                 </div>
             </div>
         </div>
     </div>
   </section>
 
+  
   <footer>
     <%- include('footer') %>
   </footer>

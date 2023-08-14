@@ -3,10 +3,16 @@ const bcrypt = require('bcrypt')
 const passport = require('passport')
 const router = express.Router()
 const User = require('../models/user'); 
+const Project = require('../models/project'); 
 
-
-router.get('/', (req, res) => {
-    res.render('index');
+router.get('/', async (req, res) => {
+    try {
+        const projects = await Project.find();
+        res.render('index', { projects });
+    } catch (error) {
+        console.error('Error fetching projects:', error);
+        res.status(500).send('Internal server error');
+    }
 });
 
 router.get('/login', checkNotAuthenticated, (req, res) => {
@@ -49,6 +55,31 @@ router.delete('/logout', function(req, res, next) {
 });
 
 
+router.get('/:id', async (req, res) => {
+    try {
+        const projectId = req.params.id;
+        const project = await Project.findById(projectId); // Fetch project details from the database
+        if (!project) {
+            return res.status(404).send('Project not found');
+        }
+        res.render('project', { project }); // Render the project template with the fetched details
+    } catch (error) {
+        console.error('Error fetching project details:', error);
+        res.status(500).send('Internal server error');
+    }
+});
+
+router
+  .route("/:id")
+  .get((req, res)=> {
+      res.send(`Get project with ID ${req.params.id}`)
+  })
+  .put((req, res)=> {
+      res.send(`Update project with ID ${req.params.id}`)
+  })
+  .delete((req, res)=> {
+      res.send(`Delete project with ID ${req.params.id}`)
+  })
 
 // 404 Route
 router.use((req, res) => {

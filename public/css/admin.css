@@ -1,14 +1,93 @@
+* {
+    box-sizing: border-box;
+}
 #admin {
-    background-color: #dcdcdc;
+    background-color: #f9fafb;
     color: black;
     overflow-y: scroll;
 }
-thead {
-    background-color: #999;
+.admin-section-title {
+    position:relative;
+    width: 100%;
+    padding-left: 50px;
+    padding-bottom: 50px;
+    font-size: 40px;
+    font-weight: 900;
+    text-align: left;
+    color:#999;
+}
+.admin-section-buttons {
+    width: 90%;
+    background-color: white;
+    display: flex;
+    gap: 1rem;
+}
+.admin-section-buttons button:hover {
+    background-color: #72A0C1;
+    border: transparent;
+}
+.admin-section-content {
+    width: 90%;
+    height: 60vh;
+    overflow-y: scroll;
+}
+.manage-project {
+    padding: 30px 40px;
+    background-color: white;
+}
+.form-control {
+    margin-bottom: 10px;
+    position: relative;
+    padding-bottom: 20px;
+}
+.form-control label {
+    display: none;
+}
+.form-control img {
+    width: 320px;
+    height: auto;
+}
+.form-control input, textarea, select {
+    width: 100%;
+    border: 2px solid #f0f0f0;
+    font-size: 14px;
+    padding: 10px;
+    border-radius: 4px;
+}
+.form-control input:focus, textarea:focus, select:focus {
+    outline: #72A0C1;
+    border-color: #72A0C1;
+}
+button {
+    background-color: #3498db;
+    border: transparent;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    width: 100%;
+    padding: 10px;
+    font-weight: 700;
+    font-size: 15px;
+}
+
+
+/* TABLE */
+
+
+thead th {
+    background-color: #3498db;
+    color: white;
+    padding: 5px;
 }
 .light-row {
     background-color: #f2f2f2; /* Light color for even rows */
 }
 .dark-row {
     background-color: #dcdcdc; /* Dark color for odd rows */
+}
+.visitors-delete-button {
+    margin-top: 30px;
+}
+.visitors-delete-button:hover {
+    background-color: #72A0C1;
 }

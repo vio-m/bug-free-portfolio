@@ -3,7 +3,7 @@ const cookieParser = require('cookie-parser');
 const router = express.Router();
 const mongoose = require('mongoose');
 const Visitor = require('../models/visitor');
-
+const Project = require('../models/project'); 
 
 // Middleware function to track unique visitors
 router.use(cookieParser());
@@ -66,10 +66,15 @@ router.use(async (req, res, next) => {
     next();
 });
 
-// Route to display unique visitor information
+// VISITORS
 router.get('/admin', checkAuthenticated, async (req, res) => {
     // Fetch unique visitors from the MongoDB collection
     try {
+        const allProjects = await Project.find()
+
+        const selectedProjectId = req.query.projectId; 
+        const selectedProject = allProjects.find(project => project._id.toString() === selectedProjectId);
+
         const allVisitors = await Visitor.find({}).sort({ timestamp: -1 }); // Get all visitors and sort by timestamp in descending order
         // Group visitors by v_id and retain only the latest 3 for each v_id
         const latestVisitorsMap = new Map();
@@ -97,15 +102,14 @@ router.get('/admin', checkAuthenticated, async (req, res) => {
             });
         });
 
-        res.render('admin', { uniqueVisitors, formatDateTime, visitorId: req.visitorId });
+        //res.render('admin', { projects: allProjects, selectedProject, uniqueVisitors, formatDateTime, visitorId: req.visitorId });
+        res.render('admin', { projects: allProjects, selectedProject, uniqueVisitors, formatDateTime, visitorId: req.visitorId, projectsJson: JSON.stringify(allProjects) });
     } catch (error) {
         console.error('Error fetching visitor data from MongoDB:', error);
         res.status(500).send('Internal Server Error');
     }
 });
-
-// Delete selected visitors route
-router.post('/delete', async (req, res) => {
+router.post('/delete-visitors', async (req, res) => {
     let selectedVisitorIds = req.body.selectedVisitors;
     try {
         // Delete selected visitors from the MongoDB collection
@@ -116,6 +120,57 @@ router.post('/delete', async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 });
+
+// PROJECTS
+/*
+router.get('/admin', checkAuthenticated, async (req, res) => {
+    try {
+        const allProjects = await Project.find(); // Fetch all projects from the database
+        res.render('admin', { projects: allProjects }); // Render the admin template with projects
+    } catch (error) {
+        console.error('Error fetching projects:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+*/
+router.post('/admin', async (req, res) => {
+    try {
+        const { title, description, image } = req.body;
+        const newProject = new Project({
+            title,
+            description,
+            image
+        });
+        await newProject.save(); 
+        res.redirect('/admin'); 
+    } catch (error) {
+        console.error('Error creating project:', error);
+        res.status(500).send('Internal server error');
+    }
+});
+router.post('/edit', async (req, res) => {
+    try {
+        console.log(">>> starting edit ")
+        const { projectId, title, description, image } = req.body;
+        await Project.findByIdAndUpdate(projectId, { title, description, image }); // Update project in the database
+        res.redirect('/admin'); // Redirect to the admin page
+    } catch (error) {
+        console.error('Error editing project:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+router.post('/delete-projects', async (req, res) => {
+    try {
+        const projectId = req.body.projectId;
+        await Project.findByIdAndDelete(projectId); // Delete project from the database
+        res.redirect('/admin'); // Redirect to the admin page
+    } catch (error) {
+        console.error('Error deleting project:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+
 
 function checkAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {

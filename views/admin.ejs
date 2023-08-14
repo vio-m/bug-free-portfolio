@@ -9,50 +9,190 @@
 </head>
 <body>
   <header>
-    <nav class="navbar">
+    <nav class="navbar" id="navbar">
+        <div class="burger-menu" id="burger-menu">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
         <ul>
             <li><a href="/">Home</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#visitors">Visitors</a></li>
             <li>
                 <form action="/logout?_method=DELETE" method="POST">
                     <button type="submit">Log Out</button>
                 </form>
             </li>
         </ul>
+        <div class="close-btn" id="close-btn">X</div>
     </nav>
   </header>
 
-  <section id="admin" class="admin">
-    <div>
-        <h1><%= uniqueVisitors.length %> Unique Visitors</h1>
-        <form action="/delete" method="POST">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Select</th>
-                        <th>Visitor</th>
-                        <th>IP Address</th>
-                        <th>OS / browser</th>
-                        <th>Last Visit</th>
-                    </tr>
-                </thead>
-                <% uniqueVisitors.forEach((visitor, index) => { %>
-                    <tr class="<%= index % 2 === 0 ? 'light-row' : 'dark-row' %>">
-                        <td>
-                            <% const checkboxId = 'checkbox-' + visitor.v_id; %>
-                            <input type="checkbox" name="selectedVisitors" value="<%= visitor.v_id %>" id="<%= checkboxId %>">
-                            <label for="<%= checkboxId %>"></label>
-                        </td>
-                        <td><%= visitor.v_id %></td>
-                        <td><%= visitor.ip %></td>
-                        <td><%= visitor.userAgent %></td>
-                        <td><%= formatDateTime(visitor.timestamp) %></td>
-                    </tr>
-                <% }); %>
-            </table>
-            <button type="submit" onclick="{console.log('clicked')}">Delete Selected</button>
-        </form>
-    </div>
-  </section>
+  <div id="admin" class="admin">
+    <!-- PROJECTS -->
+    <section id="projects">
+        <div class="admin-section-title">Projects</div>
+        <div class="admin-section-buttons">
+            <button id="add-button">Add</button>
+            <button id="edit-button">Edit</button>
+            <button id="delete-button">Delete</button>
+        </div>
+        <div class="admin-section-content">
+            <div id="add-form" class="manage-project" style="display: none;">
+                <form action="/admin" method="POST">
+                    <div class="form-control">
+                        <label for="project-title">Title:</label>
+                        <input type="text" id="project-title" name="title" placeholder="Title" required>
+                    </div>
+                    <div class="form-control">
+                        <label for="project-description">Description:</label>
+                        <textarea id="project-description" name="description" rows="4" placeholder="Project description" required></textarea>
+                    </div>
+                    <div class="form-control">
+                        <label for="project-image">Image URL:</label>
+                        <input type="url" id="project-image" name="image" placeholder="Image URL" required>
+                    </div>
+                    <button type="submit">Add Project</button>
+                </form>
+            </div>
+            <div id="edit-form" class="manage-project" style="display: none;">
+                <form action="/edit" method="POST">
+                    <div class="form-control">
+                        <label for="project-select">Select a project:</label>
+                        <select id="project-select" name="projectId">
+                            <% projects.forEach(project => { %>
+                                <option value="<%= project._id %>" 
+                                        data-title="<%= project.title %>" 
+                                        data-description="<%= project.description %>" 
+                                        data-image="<%= project.image %>">
+                                    <%= project.title %>
+                                </option>
+                            <% }) %>
+                        </select>
+                    </div>
+                    <div class="form-control">
+                        <label for="edit-title">Edit Title:</label>
+                        <input type="text" id="edit-title" name="title" value="<%= selectedProject ? selectedProject.title : '' %>" required>
+                    </div>
+                    <div class="form-control">
+                        <label for="edit-description">Edit Description:</label>
+                        <textarea id="edit-description" name="description" rows="4" required><%= selectedProject ? selectedProject.description : '' %></textarea>
+                    </div>
+                    <div class="form-control">
+                        <label for="edit-image">Edit Image:</label>
+                        <input type="url" id="edit-image" name="image" value="<%= selectedProject ? selectedProject.image : '' %>">
+                        <img id="project-image" src="<%= selectedProject ? selectedProject.image : 'https://st2.depositphotos.com/2234823/8227/i/600/depositphotos_82277240-stock-photo-image.jpg' %>" alt="Project Image">
+                    </div>
+                    <button type="submit">Edit</button>
+                </form>
+            </div>
+            <div id="delete-form" class="manage-project" style="display: none;">
+                <form action="/delete-projects" method="POST">
+                    <div class="form-control">
+                        <label for="delete-project-select">Select a project to delete:</label>
+                        <select id="delete-project-select" name="projectId">
+                            <% projects.forEach(project => { %>
+                                <option value="<%= project._id %>"><%= project.title %></option>
+                            <% }) %>
+                        </select>
+                    </div>    
+                    <button type="submit">Delete</button>
+                </form>
+            </div> 
+        </div>
+    </section>
+    
+    <!-- VISITORS -->
+    <section id="visitors">
+        <div class="admin-section-title"><%= uniqueVisitors.length %> Unique Visitors</div>
+        <div class="admin-section-content">
+            <form action="/delete-visitors" method="POST">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Sel</th>
+                            <th>Visitor</th>
+                            <th>IP Address</th>
+                            <th>OS / browser</th>
+                            <th>Last Visit</th>
+                        </tr>
+                    </thead>
+                    <% uniqueVisitors.forEach((visitor, index) => { %>
+                        <tr class="<%= index % 2 === 0 ? 'light-row' : 'dark-row' %>">
+                            <td>
+                                <% const checkboxId = 'checkbox-' + visitor.v_id; %>
+                                <input type="checkbox" name="selectedVisitors" value="<%= visitor.v_id %>" id="<%= checkboxId %>">
+                                <label for="<%= checkboxId %>"></label>
+                            </td>
+                            <td><%= visitor.v_id %></td>
+                            <td><%= visitor.ip %></td>
+                            <td><%= visitor.userAgent %></td>
+                            <td><%= formatDateTime(visitor.timestamp) %></td>
+                        </tr>
+                    <% }); %>
+                </table>
+                <button type="submit" onclick="{console.log('clicked')}" class="visitors-delete-button">Delete Selected</button>
+            </form>
+        </div>
+    </section>
 
+  </div>
+
+
+    <!-- SCRIPTS -->
+    <script>
+        const projectSelect = document.getElementById("project-select");
+        const editTitleInput = document.getElementById("edit-title");
+        const editDescriptionInput = document.getElementById("edit-description");
+        const editImageInput = document.getElementById("edit-image");
+        const projectImage = document.getElementById("project-image");
+
+        projectSelect.addEventListener("change", () => {
+            const selectedOption = projectSelect.options[projectSelect.selectedIndex];
+            const selectedProjectTitle = selectedOption.getAttribute("data-title");
+            const selectedProjectDescription = selectedOption.getAttribute("data-description");
+            const selectedProjectImage = selectedOption.getAttribute("data-image");
+    
+            editTitleInput.value = selectedProjectTitle;
+            editDescriptionInput.value = selectedProjectDescription;
+            editImageInput.value = selectedProjectImage;
+            projectImage.src = selectedProjectImage;
+        });
+    </script>
+    <script>
+        const addButton = document.getElementById("add-button");
+        const editButton = document.getElementById("edit-button");
+        const deleteButton = document.getElementById("delete-button");
+        
+        const addForm = document.getElementById("add-form");
+        const editForm = document.getElementById("edit-form");
+        const deleteForm = document.getElementById("delete-form");
+        
+        addButton.addEventListener("click", () => {
+            addForm.style.display = "block";
+            editForm.style.display = "none";
+            deleteForm.style.display = "none";
+        });
+        
+        editButton.addEventListener("click", () => {
+            addForm.style.display = "none";
+            editForm.style.display = "block";
+            deleteForm.style.display = "none";
+        });
+        
+        deleteButton.addEventListener("click", () => {
+            addForm.style.display = "none";
+            editForm.style.display = "none";
+            deleteForm.style.display = "block";
+        });
+    </script>
+    
+    
+    
 </body>
 </html>
+
+
+
+
