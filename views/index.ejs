@@ -17,8 +17,26 @@
 
   <section id="home">
     <div class="parallax-content" data-speed="0.0">
-      <div class="container">
-        <div>Welcome to My Portfolio</div> 
+      <div class="container home">
+        <div class="external-circle">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="300px" height="300px" viewBox="0 0 300 300" enable-background="new 0 0 300 300" xml:space="preserve">
+                <defs>
+                    <path id="circlePath" d="M 150, 150 m -120, 0 a 120,120 0 0,1 240,0 a 120,120 0 0,1 -240,0 "/>
+                </defs>
+                <g>
+                    <use xlink:href="#circlePath" fill="none"/>
+                    <text fill="#000">
+                        <textPath xlink:href="#circlePath">Welcome to My Digital Playground!</textPath>
+                    </text>
+                </g>
+            </svg>
+            <div class="circle">
+                <img id="circleImage" src="images/front.jpg" alt="Image">
+            </div> 
+        </div>
+        <div>
+            <a href="#about"><div class="arrow bounce"></div></a>
+        </div>
       </div>  
     </div>
   </section>
@@ -43,24 +61,21 @@
   </section>
 
   <section id="projects">
-    
         <div class="parallax-content" data-speed="0.0">
             <div class="container">
                 <div class="carousel">
                     <% projects.forEach(project => { %>
-                        <div class="individual-project">
-                            <a href="/projects/<%= project._id %>">
-                                <!-- Add project details here -->
-                                <img src="<%= project.image %>" alt="Project Image">
-                                <div class="project-title"><%= project.title %></div>
+                        <div class="carousel-project">
+                                <div class="project-image">
+                                    <img src="<%= project.image %>" alt="Project Image">
+                                </div>
+                                <a href="/projects/<%= project._id %>" class="project-title shadow"><%= project.title %></a>
                                 <div class="project-description"><%= project.description %></div>
-                            </a>
                         </div>
                     <% }) %>
                 </div>
             </div>
         </div>
-    
   </section>
 
   
@@ -90,6 +105,32 @@
   <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
   <script type="text/javascript" src="slick/slick.min.js"></script>
   <script src="/js/carousel.js"></script>
+
+
+  <script>
+    const circleImage = document.getElementById('circleImage');
+    const circleDiv = document.querySelector('.circle');
+    const leftImage = 'images/left.jpg';
+    const rightImage = 'images/right.jpg';
+    const frontImage = 'images/front.jpg';
+    const downImage = 'images/down.jpg';
+
+    document.addEventListener('mousemove', (event) => {
+        const mouseX = event.clientX;
+        const mouseY = event.clientY;
+        const circleRect = circleDiv.getBoundingClientRect();
+
+        if (mouseX < circleRect.left) {
+            circleImage.src = leftImage;
+        } else if (mouseX > circleRect.right) {
+            circleImage.src = rightImage;
+        } else if (mouseY > circleRect.bottom) {
+            circleImage.src = downImage;
+        } else {
+            circleImage.src = frontImage;
+        }
+    });
+  </script>
 
 
 
