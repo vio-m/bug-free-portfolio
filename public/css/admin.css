@@ -49,14 +49,25 @@
 }
 .form-control input, textarea, select {
     width: 100%;
+    height: 40px;
     border: 2px solid #f0f0f0;
     font-size: 14px;
     padding: 10px;
     border-radius: 4px;
 }
+.form-control textarea {
+    height: 120px;
+}
 .form-control input:focus, textarea:focus, select:focus {
     outline: #72A0C1;
     border-color: #72A0C1;
+}
+.dropdown {
+    display: flex;
+    gap: 1.5rem;
+}
+.dropdown select, img {
+    flex: 1;
 }
 button {
     background-color: #3498db;

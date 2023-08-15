@@ -43,7 +43,7 @@
   </section>
 
   <section id="projects">
-    <div id="wave">
+    
         <div class="parallax-content" data-speed="0.0">
             <div class="container">
                 <div class="carousel">
@@ -51,7 +51,7 @@
                         <div class="individual-project">
                             <a href="/projects/<%= project._id %>">
                                 <!-- Add project details here -->
-                                <img src="/images/placeholder.jpg" alt="<%= project.title %>">
+                                <img src="<%= project.image %>" alt="Project Image">
                                 <div class="project-title"><%= project.title %></div>
                                 <div class="project-description"><%= project.description %></div>
                             </a>
@@ -60,7 +60,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    
   </section>
 
   
@@ -92,7 +92,17 @@
   <script src="/js/carousel.js"></script>
 
 
-  <!-- https://www.vantajs.com/ -->
+
+
+
+</body>
+</html>
+
+
+
+<!-- https://www.vantajs.com/ -->
+<!--
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.waves.min.js"></script>
   <script>
@@ -109,5 +119,4 @@
     })
   </script>
 
-</body>
-</html>
+-->
