@@ -1,5 +1,13 @@
 var text = "skills";
-var messages = ["html", "css", "js", "", "", ""];
+var messages = [
+    '<i class="fa-brands fa-html5"></i>',
+    '<i class="fa-brands fa-css3"></i>',
+    '<i class="fa-brands fa-square-js"></i>',
+    '<i class="fa-brands fa-react"></i>',
+    '<i class="fa-brands fa-node-js"></i>',
+    '<i class="fa-brands fa-python"></i>',
+    
+            ];
 
 var textblock = null;
 var textIndex = 0;

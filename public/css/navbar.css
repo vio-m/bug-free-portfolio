@@ -23,18 +23,24 @@
 }
   
 .navbar ul li a {
-    font-size: 20px;
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 900;
     text-decoration: none;
     text-transform: uppercase;
     color: #f4f4f4;
+    padding: 0px 20px;
 }
   
-.navbar ul li a:hover {
-    color: skyblue;
+.navbar ul li:hover {
+    background-color: #85929e;
+    color: rgba(0,0,0,0.7);
 }
 
 .navbar ul li button {
-    font-size: 20px;
+    font-size: 16px;
+    font-weight: 900;
     border: none;
     color: #f4f4f4;
     background-color: transparent;
@@ -43,7 +49,7 @@
 }
 
 .navbar ul li button:hover {
-    color: skyblue;
+    color: #85929e;
 }
 
 .small {
@@ -84,7 +90,7 @@
     background-color: #f4f4f4;
 }
 .burger-menu:hover > .bar {
-    background-color: skyblue;
+    background-color: #85929e;
 }
 
 /* CLOSE BUTTON */
@@ -104,7 +110,7 @@
 }
 
 .close-btn:hover {
-    color: skyblue;
+    color: #85929e;
 }
 
 /* EXPANDED */

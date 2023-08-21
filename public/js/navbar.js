@@ -36,3 +36,5 @@ navbar.addEventListener("mouseleave", () => {
 closeBtn.addEventListener("click", () => {
     navbar.classList.remove("expanded");
 });
+
+
