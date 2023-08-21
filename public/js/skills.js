@@ -1,4 +1,4 @@
-var text = "skills";
+var text = 'Communication \n Problem-Solving \n Adaptability \n Collaboration \n Attention to Detail \n Time Management \n Critical Thinking \n Continuous Learning';
 var messages = [
     '<i class="fa-brands fa-html5"></i>',
     '<i class="fa-brands fa-css3"></i>',
