@@ -52,6 +52,10 @@
     color: #85929e;
 }
 
+#logout-btn:hover{
+    color: #f4f4f4;
+}
+
 .small {
     height: 10px;
 }

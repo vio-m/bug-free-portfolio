@@ -15,10 +15,8 @@ navbar.querySelectorAll("ul li a").forEach((item) => {
 
 window.addEventListener("scroll", () => {
     if (window.scrollY > 0) {
-        console.log(">>> small")
         navbar.classList.add("small");
     } else {
-        console.log(">>> big")
         navbar.classList.remove("small");
     }
 });

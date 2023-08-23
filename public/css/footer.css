@@ -10,7 +10,6 @@
     background: rgba(0,0,0,0.7);
 }
 .footer div {
-    flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -20,9 +19,15 @@
     color: #fafafa;
 }
 .social {
+    flex: 1;
     gap: 2rem;
 }
+.copy {
+    flex: 2;
+    overflow: hidden;
+}
 .top {
+    flex: 1;
     font-weight: 900;
 }
 .top:hover > a {

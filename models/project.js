@@ -4,7 +4,9 @@ const projectSchema = new mongoose.Schema({
     image: String,
     title: String,
     description: String,
-    // Add other fields you need for the project
+    technologies: String,
+    github: String,
+    demo: String
 });
 
 const Project = mongoose.model('Project', projectSchema);

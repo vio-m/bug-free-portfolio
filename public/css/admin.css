@@ -84,7 +84,9 @@ button {
 
 /* TABLE */
 
-
+table {
+    width: 100%;
+}
 thead th {
     background-color: #3498db;
     color: white;

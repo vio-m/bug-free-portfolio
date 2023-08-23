@@ -21,7 +21,7 @@
             <li><a href="#visitors">Visitors</a></li>
             <li>
                 <form action="/logout?_method=DELETE" method="POST">
-                    <button type="submit">Log Out</button>
+                    <button id="logout-btn" type="submit">Log Out</button>
                 </form>
             </li>
         </ul>
@@ -46,12 +46,24 @@
                         <input type="text" id="project-title" name="title" placeholder="Title" required>
                     </div>
                     <div class="form-control">
+                        <label for="project-image">Image URL:</label>
+                        <input type="url" id="project-image" name="image" placeholder="Image URL" required>
+                    </div>
+                    <div class="form-control">
                         <label for="project-description">Description:</label>
                         <textarea id="project-description" name="description" rows="4" placeholder="Project description" required></textarea>
                     </div>
                     <div class="form-control">
-                        <label for="project-image">Image URL:</label>
-                        <input type="url" id="project-image" name="image" placeholder="Image URL" required>
+                        <label for="project-technologies">Technologies:</label>
+                        <input type="text" id="project-technologies" name="technologies" placeholder="Technologies" required>
+                    </div>
+                    <div class="form-control">
+                        <label for="project-github">Github URL:</label>
+                        <input type="text" id="project-github" name="github" placeholder="Github URL" required>
+                    </div>
+                    <div class="form-control">
+                        <label for="project-demo">Live Demo:</label>
+                        <input type="text" id="project-demo" name="demo" placeholder="Demo URL" required>
                     </div>
                     <button type="submit">Add Project</button>
                 </form>
@@ -64,8 +76,12 @@
                             <% projects.forEach(project => { %>
                                 <option value="<%= project._id %>" 
                                         data-title="<%= project.title %>" 
+                                        data-image="<%= project.image %>"
                                         data-description="<%= project.description %>" 
-                                        data-image="<%= project.image %>">
+                                        data-technologies="<%= project.technologies %>"
+                                        data-github="<%= project.github %>"
+                                        data-demo="<%= project.demo %>"
+                                        >
                                     <%= project.title %>
                                 </option>
                             <% }) %>
@@ -77,12 +93,24 @@
                         <input type="text" id="edit-title" name="title" value="<%= selectedProject ? selectedProject.title : '' %>" required>
                     </div>
                     <div class="form-control">
+                        <label for="edit-image">Edit Image:</label>
+                        <input type="url" id="edit-image" name="image" value="<%= selectedProject ? selectedProject.image : '' %>">
+                    </div>
+                    <div class="form-control">
                         <label for="edit-description">Edit Description:</label>
                         <textarea id="edit-description" name="description" rows="4" required><%= selectedProject ? selectedProject.description : '' %></textarea>
                     </div>
                     <div class="form-control">
-                        <label for="edit-image">Edit Image:</label>
-                        <input type="url" id="edit-image" name="image" value="<%= selectedProject ? selectedProject.image : '' %>">
+                        <label for="edit-technologies">Edit Technologies:</label>
+                        <input type="text" id="edit-technologies" name="technologies" value="<%= selectedProject ? selectedProject.technologies : '' %>" required>
+                    </div>
+                    <div class="form-control">
+                        <label for="edit-github">Edit Github:</label>
+                        <input type="text" id="edit-github" name="github" value="<%= selectedProject ? selectedProject.github : '' %>" required>
+                    </div>
+                    <div class="form-control">
+                        <label for="edit-demo">Edit Demo:</label>
+                        <input type="text" id="edit-demo" name="demo" value="<%= selectedProject ? selectedProject.demo : '' %>" required>
                     </div>
                     <button type="submit">Edit</button>
                 </form>
@@ -147,17 +175,26 @@
         const editDescriptionInput = document.getElementById("edit-description");
         const editImageInput = document.getElementById("edit-image");
         const editProjectImage = document.getElementById("edit-project-image");
+        const editTechnologiesInput = document.getElementById("edit-technologies");
+        const editGithubInput = document.getElementById("edit-github");
+        const editDemoInput = document.getElementById("edit-demo");
 
         projectSelect.addEventListener("change", () => {
             const selectedOption = projectSelect.options[projectSelect.selectedIndex];
             const selectedProjectTitle = selectedOption.getAttribute("data-title");
             const selectedProjectDescription = selectedOption.getAttribute("data-description");
             const selectedProjectImage = selectedOption.getAttribute("data-image");
+            const selectedProjectTechnologies = selectedOption.getAttribute("data-technologies");
+            const selectedProjectGithub = selectedOption.getAttribute("data-github");
+            const selectedProjectDemo = selectedOption.getAttribute("data-demo");
     
             editTitleInput.value = selectedProjectTitle;
             editDescriptionInput.value = selectedProjectDescription;
             editImageInput.value = selectedProjectImage;
             editProjectImage.src = selectedProjectImage;
+            editTechnologiesInput.value = selectedProjectTechnologies;
+            editGithubInput.value = selectedProjectGithub;
+            editDemoInput.value = selectedProjectDemo;
         });
     </script>
     <script>

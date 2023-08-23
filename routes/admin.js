@@ -1,7 +1,6 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const router = express.Router();
-const mongoose = require('mongoose');
 const Visitor = require('../models/visitor');
 const Project = require('../models/project'); 
 
@@ -67,6 +66,7 @@ router.use(async (req, res, next) => {
 });
 
 // VISITORS
+
 router.get('/admin', checkAuthenticated, async (req, res) => {
     // Fetch unique visitors from the MongoDB collection
     try {
@@ -122,24 +122,17 @@ router.post('/delete-visitors', async (req, res) => {
 });
 
 // PROJECTS
-/*
-router.get('/admin', checkAuthenticated, async (req, res) => {
-    try {
-        const allProjects = await Project.find(); // Fetch all projects from the database
-        res.render('admin', { projects: allProjects }); // Render the admin template with projects
-    } catch (error) {
-        console.error('Error fetching projects:', error);
-        res.status(500).send('Internal Server Error');
-    }
-});
-*/
+
 router.post('/admin', async (req, res) => {
     try {
-        const { title, description, image } = req.body;
+        const { title, description, image, technologies, github, demo } = req.body;
         const newProject = new Project({
             title,
             description,
-            image
+            image,
+            technologies,
+            github,
+            demo
         });
         await newProject.save(); 
         res.redirect('/admin'); 
@@ -150,10 +143,9 @@ router.post('/admin', async (req, res) => {
 });
 router.post('/edit', async (req, res) => {
     try {
-        console.log(">>> starting edit ")
-        const { projectId, title, description, image } = req.body;
-        await Project.findByIdAndUpdate(projectId, { title, description, image }); // Update project in the database
-        res.redirect('/admin'); // Redirect to the admin page
+        const { projectId, title, description, image, technologies, github, demo } = req.body;
+        await Project.findByIdAndUpdate(projectId, { title, description, image, technologies, github, demo });
+        res.redirect('/admin'); 
     } catch (error) {
         console.error('Error editing project:', error);
         res.status(500).send('Internal Server Error');
@@ -162,8 +154,8 @@ router.post('/edit', async (req, res) => {
 router.post('/delete-projects', async (req, res) => {
     try {
         const projectId = req.body.projectId;
-        await Project.findByIdAndDelete(projectId); // Delete project from the database
-        res.redirect('/admin'); // Redirect to the admin page
+        await Project.findByIdAndDelete(projectId); 
+        res.redirect('/admin'); 
     } catch (error) {
         console.error('Error deleting project:', error);
         res.status(500).send('Internal Server Error');
@@ -194,81 +186,3 @@ module.exports = router;
 
 
 
-
-/*
-
-
-// Middleware function to log IP address and handle visitorId cookie
-router.use(async (req, res, next) => {
-    const visitorId = req.cookies.visitorId
-
-    if (!visitorId) {
-        const newVisitorId = generateUniqueVisitorId();
-        res.cookie('visitorId', newVisitorId, { maxAge: 86400000, httpOnly: true });
-        req.visitorId = newVisitorId; // Store the generated visitorId in the request object
-    } else {
-        req.visitorId = req.cookies.visitorId; // Use the existing visitorId from the cookie
-    }
-  
-    const visitor = new Visitor({
-        v_id: visitorId,
-        ip: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
-        method: req.method,
-        url: req.url,
-        userAgent: req.headers['user-agent'],
-        referer: req.headers['referer'] || 'Direct visit',
-        timestamp: new Date()
-    });
-
-    // Save visitor data to the MongoDB collection
-    try {
-        await visitor.save();
-    } catch (error) {
-        console.error('Error saving visitor data to MongoDB:', error);
-    }
-    next();
-});
-
-
-
-
-
-// Route to display unique visitor information
-router.get('/admin', checkAuthenticated, async (req, res) => {
-    try {
-        // Get all unique visitors from the MongoDB collection
-        const uniqueVisitors = await Visitor.aggregate([
-            // Group by 'v_id' to find the latest visitor for each unique ID
-            { $group: { _id: '$v_id', latestVisitor: { $last: '$$ROOT' } } },
-            // Project only the required fields
-            {
-                $project: {
-                    _id: '$latestVisitor._id',
-                    v_id: '$latestVisitor.v_id',
-                    ip: '$latestVisitor.ip',
-                    userAgent: '$latestVisitor.userAgent',
-                    timestamp: '$latestVisitor.timestamp'
-                }
-            }
-        ]);
-
-        // Delete older unique visitors with the same 'v_id'
-        const deletePromises = [];
-        uniqueVisitors.forEach((visitor) => {
-            const deletePromise = Visitor.deleteMany({ v_id: visitor.v_id, _id: { $ne: visitor._id } });
-            deletePromises.push(deletePromise);
-        });
-
-        // Wait for all delete operations to complete before rendering the admin page
-        await Promise.all(deletePromises);
-
-        res.render('admin', { uniqueVisitors, formatDateTime, visitorId: req.visitorId });
-    } catch (error) {
-        console.error('Error fetching visitor data from MongoDB:', error);
-        res.status(500).send('Internal Server Error');
-    }
-});
-
-
-
-*/

@@ -1,0 +1,45 @@
+.register-container {
+    width: 300px;
+    margin: 0 auto;
+    margin-top: 100px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #999;
+}
+
+.register-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.register-container > form > label {
+    display: none;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+input[type="submit"] {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
