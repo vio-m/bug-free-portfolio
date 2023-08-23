@@ -6,11 +6,24 @@
         <div class="bar"></div>
     </div>
     <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="/admin">Admin</a></li>
+        <% if (isAuthenticated) { %>
+            <!-- Logged In Links -->
+            <li><a href="/">Home</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#visitors">Visitors</a></li>
+            <li>
+                <form action="/logout?_method=DELETE" method="POST">
+                    <button id="logout-btn" type="submit">Log Out</button>
+                </form>
+            </li>
+        <% } else { %>
+            <!-- Not Logged In Links -->
+            <li><a href="/">Home</a></li>
+            <li><a href="/#about">About</a></li>
+            <li><a href="/#projects">Projects</a></li>
+            <li><a href="/#skills">Skills</a></li>
+            <li><a href="/admin">Admin</a></li>
+        <% } %>
     </ul>
     <div class="close-btn" id="close-btn">X</div>
 </nav>

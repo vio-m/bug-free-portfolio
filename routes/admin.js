@@ -103,7 +103,7 @@ router.get('/admin', checkAuthenticated, async (req, res) => {
         });
 
         //res.render('admin', { projects: allProjects, selectedProject, uniqueVisitors, formatDateTime, visitorId: req.visitorId });
-        res.render('admin', { projects: allProjects, selectedProject, uniqueVisitors, formatDateTime, visitorId: req.visitorId, projectsJson: JSON.stringify(allProjects) });
+        res.render('admin', { isAuthenticated: req.isAuthenticated(), projects: allProjects, selectedProject, uniqueVisitors, formatDateTime, visitorId: req.visitorId, projectsJson: JSON.stringify(allProjects) });
     } catch (error) {
         console.error('Error fetching visitor data from MongoDB:', error);
         res.status(500).send('Internal Server Error');

@@ -8,26 +8,9 @@
   <link rel="stylesheet" href="/css/admin.css">
 </head>
 <body>
-  <header>
-    <nav class="navbar" id="navbar">
-        <div class="burger-menu" id="burger-menu">
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-        </div>
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#visitors">Visitors</a></li>
-            <li>
-                <form action="/logout?_method=DELETE" method="POST">
-                    <button id="logout-btn" type="submit">Log Out</button>
-                </form>
-            </li>
-        </ul>
-        <div class="close-btn" id="close-btn">X</div>
-    </nav>
-  </header>
+    <header>
+        <%- include('navbar', { isAuthenticated: isAuthenticated }) %>
+    </header>
 
   <div id="admin" class="admin">
     <!-- PROJECTS -->
@@ -167,71 +150,9 @@
 
   </div>
 
-
     <!-- SCRIPTS -->
-    <script>
-        const projectSelect = document.getElementById("project-select");
-        const editTitleInput = document.getElementById("edit-title");
-        const editDescriptionInput = document.getElementById("edit-description");
-        const editImageInput = document.getElementById("edit-image");
-        const editProjectImage = document.getElementById("edit-project-image");
-        const editTechnologiesInput = document.getElementById("edit-technologies");
-        const editGithubInput = document.getElementById("edit-github");
-        const editDemoInput = document.getElementById("edit-demo");
-
-        projectSelect.addEventListener("change", () => {
-            const selectedOption = projectSelect.options[projectSelect.selectedIndex];
-            const selectedProjectTitle = selectedOption.getAttribute("data-title");
-            const selectedProjectDescription = selectedOption.getAttribute("data-description");
-            const selectedProjectImage = selectedOption.getAttribute("data-image");
-            const selectedProjectTechnologies = selectedOption.getAttribute("data-technologies");
-            const selectedProjectGithub = selectedOption.getAttribute("data-github");
-            const selectedProjectDemo = selectedOption.getAttribute("data-demo");
-    
-            editTitleInput.value = selectedProjectTitle;
-            editDescriptionInput.value = selectedProjectDescription;
-            editImageInput.value = selectedProjectImage;
-            editProjectImage.src = selectedProjectImage;
-            editTechnologiesInput.value = selectedProjectTechnologies;
-            editGithubInput.value = selectedProjectGithub;
-            editDemoInput.value = selectedProjectDemo;
-        });
-    </script>
-    <script>
-        const addButton = document.getElementById("add-button");
-        const editButton = document.getElementById("edit-button");
-        const deleteButton = document.getElementById("delete-button");
-        
-        const addForm = document.getElementById("add-form");
-        const editForm = document.getElementById("edit-form");
-        const deleteForm = document.getElementById("delete-form");
-        
-        addButton.addEventListener("click", () => {
-            addForm.style.display = "block";
-            editForm.style.display = "none";
-            deleteForm.style.display = "none";
-        });
-        
-        editButton.addEventListener("click", () => {
-            addForm.style.display = "none";
-            editForm.style.display = "block";
-            deleteForm.style.display = "none";
-        });
-        
-        deleteButton.addEventListener("click", () => {
-            addForm.style.display = "none";
-            editForm.style.display = "none";
-            deleteForm.style.display = "block";
-        });
-    </script>
-    <script>
-        function confirmDelete() {
-            return confirm("Are you sure you want to delete this project?");
-        }
-    </script>
     <script src="/js/navbar.js"></script>
-    
-    
+    <script src="/js/crud.js"></script>
 </body>
 </html>
 

@@ -22,9 +22,7 @@ async function getUserById(id) {
 }
 const authenticate = async (email, password, done) => {
     const user = await User.findOne({ email: email });
-    console.log(">>> passport-config User", user);
     if (!user) {
-        console.log(">>> !user ")
         return done(null, false, { message: 'No user with that email' })
     }
 
@@ -46,7 +44,6 @@ function initialize(passport) {
     passport.use('local', new LocalStrategy(
         
         async (username, password, done)=> {
-            //console.log(">>> u/p:", username, password)
             // Match user
             const user = await User.findOne({ username: username });
             if (user == null) {

@@ -5,10 +5,11 @@ const router = express.Router()
 const User = require('../models/user'); 
 const Project = require('../models/project'); 
 
+
 router.get('/', async (req, res) => {
     try {
         const projects = await Project.find();
-        res.render('index', { projects });
+        res.render('index', { projects, isAuthenticated: req.isAuthenticated() });
     } catch (error) {
         console.error('Error fetching projects:', error);
         res.status(500).send('Internal server error');
@@ -16,7 +17,7 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/login', checkNotAuthenticated, (req, res) => {
-    res.render('login.ejs')
+    res.render('login.ejs', { isAuthenticated: req.isAuthenticated() })
 })
   
 router.post('/login', passport.authenticate('local', {
@@ -26,7 +27,7 @@ router.post('/login', passport.authenticate('local', {
 }));
 
 router.get('/register', checkNotAuthenticated, (req, res) => {
-    res.render('register.ejs')
+    res.render('register.ejs', { isAuthenticated: req.isAuthenticated() })
 })
 
 router.post('/register', checkNotAuthenticated, async (req, res) => {
@@ -54,43 +55,13 @@ router.delete('/logout', function(req, res, next) {
     });
 });
 
-
-router.get('/:id', async (req, res) => {
-    try {
-        const projectId = req.params.id;
-        const project = await Project.findById(projectId); // Fetch project details from the database
-        if (!project) {
-            return res.status(404).send('Project not found');
-        }
-        res.render('project', { project }); // Render the project template with the fetched details
-    } catch (error) {
-        console.error('Error fetching project details:', error);
-        res.status(500).send('Internal server error');
-    }
-});
-
-router
-  .route("/:id")
-  .get((req, res)=> {
-      res.send(`Get project with ID ${req.params.id}`)
-  })
-  .put((req, res)=> {
-      res.send(`Update project with ID ${req.params.id}`)
-  })
-  .delete((req, res)=> {
-      res.send(`Delete project with ID ${req.params.id}`)
-  })
-
 // 404 Route
 router.use((req, res) => {
   res.status(404).send('404: Page not found');
 });
 
-
-
 function checkNotAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
-      console.log(">>> isAuthenticated");
       return res.redirect('/');
     }
     next();
@@ -99,68 +70,3 @@ function checkNotAuthenticated(req, res, next) {
 module.exports = router
 
 
-// ------------------------------------------------------------------------
-/*
-// Array to store visitor IP addresses
-const visitors = [];
-
-// Middleware function to track unique visitors
-router.use(cookieParser());
-
-router.use((req, res, next) => {
-    if (!req.cookies.visitorId) {
-      const visitorId = generateUniqueId();
-      res.cookie('visitorId', visitorId, { maxAge: 86400000, httpOnly: true });
-    }
-    next();
-});
-  
-function generateUniqueId() {
-    return Math.random().toString(36).substring(2);
-}
-
-// Middleware function to log IP address
-router.use((req, res, next) => {
-    const visitor = {
-        ip: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
-        method: req.method,
-        url: req.url,
-        userAgent: req.headers['user-agent'],
-        referer: req.headers['referer'] || 'Direct visit'
-    };
-    visitors.push(visitor);
-    next();
-});
-
-// Route to display unique visitor information
-router.get('/admin', (req, res) => {
-    const uniqueVisitors = [];
-    for (const cookie in req.cookies) {
-        if (cookie === 'visitorId') {
-            uniqueVisitors.push(req.cookies[cookie]);
-        }
-    }
-    res.render('admin', { uniqueVisitors, visitors });
-});*/
-
-/* 
-// Project routes
-router
-  .route("/projects")
-  .get((req, res)=> {
-      res.send('PROJECTS');
-  })
-
-router
-  .route("/projects/:id")
-  .get((req, res)=> {
-      res.send(`Get project with ID ${req.params.id}`)
-  })
-  .put((req, res)=> {
-      res.send(`Update project with ID ${req.params.id}`)
-  })
-  .delete((req, res)=> {
-      res.send(`Delete project with ID ${req.params.id}`)
-  })
-*/
-// ------------------------------------------------------------------

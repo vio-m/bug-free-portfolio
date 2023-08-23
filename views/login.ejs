@@ -9,7 +9,7 @@
 </head>
 <body>
   <header>
-    <%- include('navbar') %>
+    <%- include('navbar', { isAuthenticated: isAuthenticated }) %>
   </header>
 
   <section id="login">
