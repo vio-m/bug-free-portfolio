@@ -112,6 +112,19 @@
       });
     });
   </script>
+  <script>
+    const preloadedImages = {
+        left: new Image(),
+        right: new Image(),
+        front: new Image(),
+        down: new Image()
+    };
+
+    preloadedImages.left.src = 'images/left.jpg';
+    preloadedImages.right.src = 'images/right.jpg';
+    preloadedImages.front.src = 'images/front.jpg';
+    preloadedImages.down.src = 'images/down.jpg';
+  </script>
   <script src="/js/smooth-scroll.js"></script>
   <script src="/js/navbar.js"></script>
   <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>

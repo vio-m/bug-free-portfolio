@@ -1,9 +1,5 @@
 const circleImage = document.getElementById('circleImage');
 const circleDiv = document.querySelector('.circle');
-const leftImage = 'images/left.jpg';
-const rightImage = 'images/right.jpg';
-const frontImage = 'images/front.jpg';
-const downImage = 'images/down.jpg';
 
 document.addEventListener('mousemove', (event) => {
     const mouseX = event.clientX;
@@ -11,12 +7,12 @@ document.addEventListener('mousemove', (event) => {
     const circleRect = circleDiv.getBoundingClientRect();
 
     if (mouseX < circleRect.left) {
-        circleImage.src = leftImage;
+        circleImage.src = preloadedImages.left.src;
     } else if (mouseX > circleRect.right) {
-        circleImage.src = rightImage;
+        circleImage.src = preloadedImages.right.src;
     } else if (mouseY > circleRect.bottom) {
-        circleImage.src = downImage;
+        circleImage.src = preloadedImages.down.src;
     } else {
-        circleImage.src = frontImage;
+        circleImage.src = preloadedImages.front.src;
     }
 });
