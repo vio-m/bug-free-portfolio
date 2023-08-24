@@ -36,8 +36,10 @@ const authRoutes = require('./routes/auth');
 app.use('/', adminRoutes);
 app.use('/', authRoutes);
 
-app.listen(3000, () => {
-  console.log('Server is running on port 3000');
+const PORT = process.env.PORT
+
+app.listen(PORT, () => {
+  console.log('Server is running on port ' + PORT);
 });
 
 
