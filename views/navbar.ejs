@@ -5,28 +5,25 @@
         <div class="bar"></div>
         <div class="bar"></div>
     </div>
-    <ul>
+    <div class="link-container">
         <% if (isAuthenticated) { %>
             <!-- Logged In Links -->
-            <li><a href="/">Home</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#visitors">Visitors</a></li>
-            <li>
-                <form action="/logout?_method=DELETE" method="POST">
-                    <button id="logout-btn" type="submit">Log Out</button>
-                </form>
-            </li>
+            <a href="/">Home</a>
+            <a href="/admin">Admin</a>
+            <form action="/logout?_method=DELETE" method="POST">
+                <button id="logout-btn" type="submit">Log Out</button>
+            </form>
         <% } else { %>
             <!-- Not Logged In Links -->
-            <li><a href="/">Home</a></li>
-            <li><a href="/#about">About</a></li>
-            <li><a href="/#projects">Projects</a></li>
-            <li><a href="/#skills">Skills</a></li>
-            <li><a href="/admin">Admin</a></li>
+            <a href="/">Home</a>
+            <a href="/#about">About</a>
+            <a href="/#projects">Projects</a>
+            <a href="/download" target="_blank">Download CV</a>
         <% } %>
-    </ul>
+        </div>
     <div class="close-btn" id="close-btn">X</div>
 </nav>
+<div class="logo"><img src="/images/vm.png" alt="logo" ></div>
 
 
   

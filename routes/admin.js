@@ -3,6 +3,8 @@ const cookieParser = require('cookie-parser');
 const router = express.Router();
 const Visitor = require('../models/visitor');
 const Project = require('../models/project'); 
+const Counter = require('../models/counter');
+
 
 // Middleware function to track unique visitors
 router.use(cookieParser());
@@ -65,13 +67,15 @@ router.use(async (req, res, next) => {
     next();
 });
 
+
 // VISITORS
 
 router.get('/admin', checkAuthenticated, async (req, res) => {
     // Fetch unique visitors from the MongoDB collection
     try {
+        const allDownloads = await Counter.find() //Get the counter of CV downloads    
         const allProjects = await Project.find()
-
+        
         const selectedProjectId = req.query.projectId; 
         const selectedProject = allProjects.find(project => project._id.toString() === selectedProjectId);
 
@@ -102,13 +106,13 @@ router.get('/admin', checkAuthenticated, async (req, res) => {
             });
         });
 
-        //res.render('admin', { projects: allProjects, selectedProject, uniqueVisitors, formatDateTime, visitorId: req.visitorId });
-        res.render('admin', { isAuthenticated: req.isAuthenticated(), projects: allProjects, selectedProject, uniqueVisitors, formatDateTime, visitorId: req.visitorId, projectsJson: JSON.stringify(allProjects) });
+        res.render('admin', { isAuthenticated: req.isAuthenticated(), projects: allProjects, downloads: allDownloads[0].count, selectedProject, uniqueVisitors, formatDateTime, visitorId: req.visitorId, projectsJson: JSON.stringify(allProjects) });
     } catch (error) {
         console.error('Error fetching visitor data from MongoDB:', error);
         res.status(500).send('Internal Server Error');
     }
 });
+
 router.post('/delete-visitors', async (req, res) => {
     let selectedVisitorIds = req.body.selectedVisitors;
     try {
@@ -120,6 +124,35 @@ router.post('/delete-visitors', async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 });
+
+// CREATE COUNTER MODEL
+router.post('/create-counter', async (req, res) => {
+    try {
+        const newCounter = new Counter();
+        await newCounter.save();
+        res.status(201).json({ message: 'Counter created successfully' });
+        console.log("this: ", newCounter)
+    } catch (error) {
+        console.error('Error creating Counter:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+router.post('/reset-counter', async (req, res) => {
+    try {
+        // RESET the download counter value to default (zero)
+        await Counter.updateOne(
+            { _id: '65abe9061b8772f81bb0cb59' },
+            { $set: { count: 0 } }
+        );
+        res.redirect('/admin'); 
+    } catch (error) {
+        console.error('Error resetting download counter:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+
+
 
 // PROJECTS
 

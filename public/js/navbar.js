@@ -7,7 +7,7 @@ burgerMenu.addEventListener("click", () => {
     navbar.classList.toggle("expanded");
 });
 
-navbar.querySelectorAll("ul li a").forEach((item) => {
+navbar.querySelectorAll(".link-container a").forEach((item) => {
     item.addEventListener("click", () => {
         navbar.classList.remove("expanded");
     });

@@ -27,10 +27,11 @@ section {
     scroll-snap-align: center;
 }
 .container {
-    height: 100vh;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: rgba(0,0,0,0.5);
 }
 
 
@@ -54,10 +55,10 @@ section {
 }
 .circle {
     position: relative;
-    width: 245px;
-    height: 245px;
+    width: 230px;
+    height: 230px;
     border-radius: 50%;
-    border: 1px solid #a81111; 
+    border: 1px solid #530707; 
     overflow: hidden;
 }
 .circle img {
@@ -77,11 +78,11 @@ section {
       -ms-animation-name: rotate;
        -o-animation-name: rotate;
           animation-name: rotate;
-  -webkit-animation-duration: 5s;
-     -moz-animation-duration: 5s;
-      -ms-animation-duration: 5s;
-       -o-animation-duration: 5s;
-          animation-duration: 5s;
+  -webkit-animation-duration: 20s;
+     -moz-animation-duration: 20s;
+      -ms-animation-duration: 20s;
+       -o-animation-duration: 20s;
+          animation-duration: 20s;
   -webkit-animation-iteration-count: infinite;
      -moz-animation-iteration-count: infinite;
       -ms-animation-iteration-count: infinite;
@@ -116,20 +117,25 @@ section {
 }
 .external-circle > svg > g > text > textPath {
     letter-spacing: 15px;
+    font-family: 'Rovas Kiterjesztett', sans-serif;
 }
 
+
 /*  ARROW DOWN  */
+
 
 .arrow {
     position: relative;
     top: 200px;
-    width: 40px;
-    height: 40px;
-    background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgaGVpZ2h0PSI1MTIiIGlkPSJzdmcyIiB2ZXJzaW9uPSIxLjEiIHdpZHRoPSI1MTIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6Y2M9Imh0dHA6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL25zIyIgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIiB4bWxuczppbmtzY2FwZT0iaHR0cDovL3d3dy5pbmtzY2FwZS5vcmcvbmFtZXNwYWNlcy9pbmtzY2FwZSIgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIiB4bWxuczpzb2RpcG9kaT0iaHR0cDovL3NvZGlwb2RpLnNvdXJjZWZvcmdlLm5ldC9EVEQvc29kaXBvZGktMC5kdGQiIHhtbG5zOnN2Zz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzIGlkPSJkZWZzNCIvPjxnIGlkPSJsYXllcjEiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAsLTU0MC4zNjIyKSI+PHBhdGggZD0ibSAxMjcuNDA2MjUsNjU3Ljc4MTI1IGMgLTQuOTg1MywwLjA3ODQgLTkuOTEwNzcsMi4xNjMwOCAtMTMuNDM3NSw1LjY4NzUgbCAtNTUsNTUgYyAtMy42MDA1NjUsMy41OTkyNyAtNS42OTY4ODMsOC42NTg5NSAtNS42OTY4ODMsMTMuNzUgMCw1LjA5MTA1IDIuMDk2MzE4LDEwLjE1MDczIDUuNjk2ODgzLDEzLjc1IEwgMjQyLjI1LDkyOS4yNSBjIDMuNTk5MjcsMy42MDA1NiA4LjY1ODk1LDUuNjk2ODggMTMuNzUsNS42OTY4OCA1LjA5MTA1LDAgMTAuMTUwNzMsLTIuMDk2MzIgMTMuNzUsLTUuNjk2ODggTCA0NTMuMDMxMjUsNzQ1Ljk2ODc1IGMgMy42MDA1NiwtMy41OTkyNyA1LjY5Njg4LC04LjY1ODk1IDUuNjk2ODgsLTEzLjc1IDAsLTUuMDkxMDUgLTIuMDk2MzIsLTEwLjE1MDczIC01LjY5Njg4LC0xMy43NSBsIC01NSwtNTUgYyAtMy41OTgxNSwtMy41OTEyNyAtOC42NTA2OCwtNS42ODEyNyAtMTMuNzM0MzgsLTUuNjgxMjcgLTUuMDgzNjksMCAtMTAuMTM2MjIsMi4wOSAtMTMuNzM0MzcsNS42ODEyNyBMIDI1Niw3NzguMDMxMjUgMTQxLjQzNzUsNjYzLjQ2ODc1IGMgLTMuNjY2NzgsLTMuNjY0MjMgLTguODQ4MDEsLTUuNzY0NDIgLTE0LjAzMTI1LC01LjY4NzUgeiIgaWQ9InBhdGgzNzY2LTEiIHN0eWxlPSJmb250LXNpemU6bWVkaXVtO2ZvbnQtc3R5bGU6bm9ybWFsO2ZvbnQtdmFyaWFudDpub3JtYWw7Zm9udC13ZWlnaHQ6bm9ybWFsO2ZvbnQtc3RyZXRjaDpub3JtYWw7dGV4dC1pbmRlbnQ6MDt0ZXh0LWFsaWduOnN0YXJ0O3RleHQtZGVjb3JhdGlvbjpub25lO2xpbmUtaGVpZ2h0Om5vcm1hbDtsZXR0ZXItc3BhY2luZzpub3JtYWw7d29yZC1zcGFjaW5nOm5vcm1hbDt0ZXh0LXRyYW5zZm9ybTpub25lO2RpcmVjdGlvbjpsdHI7YmxvY2stcHJvZ3Jlc3Npb246dGI7d3JpdGluZy1tb2RlOmxyLXRiO3RleHQtYW5jaG9yOnN0YXJ0O2Jhc2VsaW5lLXNoaWZ0OmJhc2VsaW5lO2NvbG9yOiMwMDAwMDA7ZmlsbDojMjIyMjIyO2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpub256ZXJvO3N0cm9rZTpub25lO3N0cm9rZS13aWR0aDozOC44ODAwMDEwNzttYXJrZXI6bm9uZTt2aXNpYmlsaXR5OnZpc2libGU7ZGlzcGxheTppbmxpbmU7b3ZlcmZsb3c6dmlzaWJsZTtlbmFibGUtYmFja2dyb3VuZDphY2N1bXVsYXRlO2ZvbnQtZmFtaWx5OlNhbnM7LWlua3NjYXBlLWZvbnQtc3BlY2lmaWNhdGlvbjpTYW5zIi8+PC9nPjwvc3ZnPg==);
-    background-size: contain;
+    font-size: 60px;
+    text-decoration: none;
+    color: #666;
+}
+.arrow:hover {
+    color:#999;
 }
 .bounce {
-    animation: bounce 2s infinite;
+    animation: bounce 3s infinite;
 }
 @keyframes bounce {
     0%, 20%, 50%, 80%, 100% {
@@ -144,24 +150,72 @@ section {
 }
 
 
-/*  CAROUSEL  */
+/*  ABOUT  SKILLS   */
+
+
+.animate__animated {
+    --animate-duration: 2s;
+    --animate-delay: 0s;
+}
+.skills {
+    display: flex; 
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.front-skills,
+ .back-skills,
+  .social-skills,
+    .other-skills {
+    padding: 10px;
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: space-evenly;
+}
+.skills i {
+    font-size: 42px;
+    padding: 20px 0;
+}
+.skills h2, h4 {
+    text-align: start;
+    padding: 10px 0;
+}
+
+
+/*span {
+    position: fixed;
+    font-size: 100%;
+    cursor: default;
+    transition: top 0.2s, left 0.2s, transform 0.2s;
+}*/
+
+
+/*    CAROUSEL    */
+
 
 .carousel {
     height: 60vh;
-    width: 90%;
+    width: 800px;
 }
 .carousel button {
-    width: 20px;
-    height: 20px;
+    width: 75px;
+    height: 75px;
     border-radius: 50%;
-    background-color: black;
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    z-index: 999;
+}
+.carousel .slick-prev::before {
+    font-size: 50px;
+}
+.carousel .slick-next::before{
+    font-size: 50px;
 }
 .carousel .slick-dots {
     position: relative;
+}
+.carousel .slick-dots li button::before{
+    color: #999!important;
 }
 .carousel-project {
     position: relative;
@@ -176,10 +230,11 @@ section {
     display: flex;
     position: relative;
     margin: 0 auto;
-    width: 100%;
-    height: 400px; 
+    width: 80%;
+    height: 350px; 
+    border-radius: 5px;
     overflow: hidden;
-
+    cursor: pointer;
 }
 .project-image img {
     width: 100%;
@@ -187,32 +242,29 @@ section {
     object-fit: cover;
 }
 .project-title {
-    position: relative;
-    width: 99%;
-    display: inline-block;
-    text-decoration: none;
-    letter-spacing: 3px;
-    cursor: pointer;
-    font-size: 20px;
-    padding: 10px;
-    color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color:#fff;
+    font-size: 42px;
+    font-weight: 900;
+    letter-spacing: 0.5rem;
+    opacity: 0;
+    transition: 0.5s;
 }
-.shadow{
-    line-height: 35px;
-    text-align: center;
-    overflow: hidden;
-    transition: all .7s ease; 
-    background: linear-gradient(90deg, rgba(211, 211, 211, 0.7) 5px, transparent 2px);
-    background-size: 400px 0px;
-    background-position: 100% 0%;
-}
-.carousel-project:hover > .shadow {
-    background-size: 5px 1px; 
+.project-image:hover .project-title{
+    opacity: 1;
+    background-color: rgba(0,0,0,0.5);
 }
 .project-description {
     position: relative;
-    max-height: 100px;
-    padding: 10px;
+    max-height: 150px;
+    padding: 30px 0;
     text-align: justify;
     letter-spacing: 1px;
     overflow: scroll;
@@ -220,7 +272,6 @@ section {
 .stack {
     display: inline-flex;
     align-items: center;
-    padding: 20px 10px;
 }
 .stack > a {
     font-size: 20px;
@@ -236,36 +287,31 @@ section {
     letter-spacing: 1px;
 }
 
-/*  ABOUT  */
 
-.about {
-    width: 80%;
-    font-size: 20px;
-    letter-spacing: 2px;
-}
-
-/* SKILLS */
-
-span {
-    position: fixed;
-    font-size: 100%;
-    cursor: default;
-    transition: top 0.2s, left 0.2s, transform 0.2s;
-}
 
 
 
 /* @MEDIA */
 
+@media screen and (max-width: 900px) {
+    .about-text,
+    .slick-list {
+        width: 600px;
+    }
+}
+
 @media screen and (max-width: 768px) {
     .project-description {
         padding: 0;
     }
-    .carousel .slick-dots {
-        margin-top: 30px;
-    }
+
   
 }
-
+@media screen and (max-width: 650px) {
+    .about-text,
+    .slick-list {
+        width: 500px;
+    }
+}
 
 

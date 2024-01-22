@@ -12,147 +12,170 @@
         <%- include('navbar', { isAuthenticated: isAuthenticated }) %>
     </header>
 
-  <div id="admin" class="admin">
-    <!-- PROJECTS -->
-    <section id="projects">
-        <div class="admin-section-title">Projects</div>
-        <div class="admin-section-buttons">
-            <button id="add-button">Add</button>
-            <button id="edit-button">Edit</button>
-            <button id="delete-button">Delete</button>
-        </div>
-        <div class="admin-section-content">
-            <div id="add-form" class="manage-project" style="display: none;">
-                <form action="/admin" method="POST">
-                    <div class="form-control">
-                        <label for="project-title">Title:</label>
-                        <input type="text" id="project-title" name="title" placeholder="Title" required>
-                    </div>
-                    <div class="form-control">
-                        <label for="project-image">Image URL:</label>
-                        <input type="url" id="project-image" name="image" placeholder="Image URL" required>
-                    </div>
-                    <div class="form-control">
-                        <label for="project-description">Description:</label>
-                        <textarea id="project-description" name="description" rows="4" placeholder="Project description" required></textarea>
-                    </div>
-                    <div class="form-control">
-                        <label for="project-technologies">Technologies:</label>
-                        <input type="text" id="project-technologies" name="technologies" placeholder="Technologies" required>
-                    </div>
-                    <div class="form-control">
-                        <label for="project-github">Github URL:</label>
-                        <input type="text" id="project-github" name="github" placeholder="Github URL" required>
-                    </div>
-                    <div class="form-control">
-                        <label for="project-demo">Live Demo:</label>
-                        <input type="text" id="project-demo" name="demo" placeholder="Demo URL" required>
-                    </div>
-                    <button type="submit">Add Project</button>
-                </form>
+    <div id="admin" class="admin">
+        <!-- PROJECTS -->
+        <div id="projects">
+            <div class="admin-section-title">Projects</div>
+            <div class="admin-section-buttons">
+                <button id="add-button">Add</button>
+                <button id="edit-button">Edit</button>
+                <button id="delete-button">Delete</button>
             </div>
-            <div id="edit-form" class="manage-project" style="display: none;">
-                <form action="/edit" method="POST">
-                    <div class="form-control dropdown">
-                        <label for="project-select">Select a project:</label>
-                        <select id="project-select" name="projectId">
-                            <% projects.forEach(project => { %>
-                                <option value="<%= project._id %>" 
-                                        data-title="<%= project.title %>" 
-                                        data-image="<%= project.image %>"
-                                        data-description="<%= project.description %>" 
-                                        data-technologies="<%= project.technologies %>"
-                                        data-github="<%= project.github %>"
-                                        data-demo="<%= project.demo %>"
-                                        >
-                                    <%= project.title %>
-                                </option>
-                            <% }) %>
-                        </select>
-                        <img id="edit-project-image" src="<%= selectedProject ? selectedProject.image : 'https://st2.depositphotos.com/2234823/8227/i/600/depositphotos_82277240-stock-photo-image.jpg' %>" alt="Project Image">
-                    </div>
-                    <div class="form-control">
-                        <label for="edit-title">Edit Title:</label>
-                        <input type="text" id="edit-title" name="title" value="<%= selectedProject ? selectedProject.title : '' %>" required>
-                    </div>
-                    <div class="form-control">
-                        <label for="edit-image">Edit Image:</label>
-                        <input type="url" id="edit-image" name="image" value="<%= selectedProject ? selectedProject.image : '' %>">
-                    </div>
-                    <div class="form-control">
-                        <label for="edit-description">Edit Description:</label>
-                        <textarea id="edit-description" name="description" rows="4" required><%= selectedProject ? selectedProject.description : '' %></textarea>
-                    </div>
-                    <div class="form-control">
-                        <label for="edit-technologies">Edit Technologies:</label>
-                        <input type="text" id="edit-technologies" name="technologies" value="<%= selectedProject ? selectedProject.technologies : '' %>" required>
-                    </div>
-                    <div class="form-control">
-                        <label for="edit-github">Edit Github:</label>
-                        <input type="text" id="edit-github" name="github" value="<%= selectedProject ? selectedProject.github : '' %>" required>
-                    </div>
-                    <div class="form-control">
-                        <label for="edit-demo">Edit Demo:</label>
-                        <input type="text" id="edit-demo" name="demo" value="<%= selectedProject ? selectedProject.demo : '' %>" required>
-                    </div>
-                    <button type="submit">Edit</button>
-                </form>
-            </div>
-            <div id="delete-form" class="manage-project" style="display: none;">
-                <form action="/delete-projects" method="POST">
-                    <div class="form-control">
-                        <label for="delete-project-select">Select a project to delete:</label>
-                        <select id="delete-project-select" name="projectId">
-                            <% projects.forEach(project => { %>
-                                <option value="<%= project._id %>"><%= project.title %></option>
-                            <% }) %>
-                        </select>
-                    </div>    
-                    <button type="submit" onclick="return confirmDelete();" class="visitors-delete-button">Delete</button>
-                </form>
-            </div> 
-        </div>
-    </section>
-    
-    <!-- VISITORS -->
-    <section id="visitors">
-        <div class="admin-section-title"><%= uniqueVisitors.length %> Unique Visitors</div>
-        <div class="admin-section-content">
-            <form action="/delete-visitors" method="POST">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Sel</th>
-                            <th>Visitor</th>
-                            <th>IP Address</th>
-                            <th>OS / browser</th>
-                            <th>Last Visit</th>
-                        </tr>
-                    </thead>
-                    <% uniqueVisitors.forEach((visitor, index) => { %>
-                        <tr class="<%= index % 2 === 0 ? 'light-row' : 'dark-row' %>">
-                            <td>
-                                <% const checkboxId = 'checkbox-' + visitor.v_id; %>
-                                <input type="checkbox" name="selectedVisitors" value="<%= visitor.v_id %>" id="<%= checkboxId %>">
-                                <label for="<%= checkboxId %>"></label>
-                            </td>
-                            <td><%= visitor.v_id %></td>
-                            <td><%= visitor.ip %></td>
-                            <td><%= visitor.userAgent %></td>
-                            <td><%= formatDateTime(visitor.timestamp) %></td>
-                        </tr>
-                    <% }); %>
-                </table>
-                <button type="submit" onclick="{console.log('clicked')}" class="visitors-delete-button">Delete Selected</button>
-            </form>
-        </div>
-    </section>
+            <div class="admin-section-content">
+                <div id="add-form" class="manage-project" style="display: none;">
+                    <form action="/admin" method="POST">
+                        <div class="form-control">
+                            <label for="project-title">Title:</label>
+                            <input type="text" id="project-title" name="title" placeholder="Title" required>
+                        </div>
+                        <div class="form-control">
+                            <label for="project-image">Image URL:</label>
+                            <input type="url" id="project-image" name="image" placeholder="Image URL" required>
+                        </div>
+                        <div class="form-control">
+                            <label for="project-description">Description:</label>
+                            <textarea id="project-description" name="description" rows="4" placeholder="Project description" required></textarea>
+                        </div>
+                        <div class="form-control">
+                            <label for="project-technologies">Technologies:</label>
+                            <input type="text" id="project-technologies" name="technologies" placeholder="Technologies" required>
+                        </div>
+                        <div class="form-control">
+                            <label for="project-github">Github URL:</label>
+                            <input type="text" id="project-github" name="github" placeholder="Github URL" required>
+                        </div>
+                        <div class="form-control">
+                            <label for="project-demo">Live Demo:</label>
+                            <input type="text" id="project-demo" name="demo" placeholder="Demo URL" required>
+                        </div>
+                        <div class="btn-group">
+                            <button type="submit">Add Project</button>
+                            <button type="button" class="cancel">Cancel</button> 
+                        </div>
+                    </form>
+                </div>
+                <div id="edit-form" class="manage-project" style="display: none;">
+                    <form action="/edit" method="POST">
+                        <div class="form-control dropdown">
+                            <label for="project-select">Select a project:</label>
+                            <select id="project-select" name="projectId">
+                                <% projects.forEach(project => { %>
+                                    <option value="<%= project._id %>" 
+                                            data-title="<%= project.title %>" 
+                                            data-image="<%= project.image %>"
+                                            data-description="<%= project.description %>" 
+                                            data-technologies="<%= project.technologies %>"
+                                            data-github="<%= project.github %>"
+                                            data-demo="<%= project.demo %>"
+                                            >
+                                        <%= project.title %>
+                                    </option>
+                                <% }) %>
+                            </select>
+                            <img id="edit-project-image" src="<%= selectedProject ? selectedProject.image : 'https://st2.depositphotos.com/2234823/8227/i/600/depositphotos_82277240-stock-photo-image.jpg' %>" alt="Project Image">
+                        </div>
+                        <div class="form-control">
+                            <label for="edit-title">Edit Title:</label>
+                            <input type="text" id="edit-title" name="title" value="<%= selectedProject ? selectedProject.title : '' %>" required>
+                        </div>
+                        <div class="form-control">
+                            <label for="edit-image">Edit Image:</label>
+                            <input type="url" id="edit-image" name="image" value="<%= selectedProject ? selectedProject.image : '' %>">
+                        </div>
+                        <div class="form-control">
+                            <label for="edit-description">Edit Description:</label>
+                            <textarea id="edit-description" name="description" rows="4" required><%= selectedProject ? selectedProject.description : '' %></textarea>
+                        </div>
+                        <div class="form-control">
+                            <label for="edit-technologies">Edit Technologies:</label>
+                            <input type="text" id="edit-technologies" name="technologies" value="<%= selectedProject ? selectedProject.technologies : '' %>" required>
+                        </div>
+                        <div class="form-control">
+                            <label for="edit-github">Edit Github:</label>
+                            <input type="text" id="edit-github" name="github" value="<%= selectedProject ? selectedProject.github : '' %>" required>
+                        </div>
+                        <div class="form-control">
+                            <label for="edit-demo">Edit Demo:</label>
+                            <input type="text" id="edit-demo" name="demo" value="<%= selectedProject ? selectedProject.demo : '' %>" required>
+                        </div>
+                        <div class="btn-group">
+                            <button type="submit">Edit</button>
+                            <button type="button" class="cancel">Cancel</button> 
+                        </div>    
+                    </form>
+                </div>
+                <div id="delete-form" class="manage-project" style="display: none;">
+                    <form action="/delete-projects" method="POST">
+                        <div class="form-control">
+                            <label for="delete-project-select">Select a project to delete:</label>
+                            <select id="delete-project-select" name="projectId">
+                                <% projects.forEach(project => { %>
+                                    <option value="<%= project._id %>"><%= project.title %></option>
+                                <% }) %>
+                            </select>
+                        </div> 
+                        <div class="btn-group">   
+                            <button type="submit" onclick="return confirmDelete();">Delete</button>
+                            <button type="button" class="cancel">Cancel</button> 
+                        </div>                
+                    </form>
+                </div>
 
-  </div>
+            </div>
+        </div>
+        
+        <!-- VISITORS -->
+        <div id="visitors">
+            <div class="admin-section-counter">
+                <div class="admin-section-title"><%= downloads %> CV Downloads</div>
+                <form action="/create-counter" method="post" style="display: none;">
+                    <button type="submit">Create counter</button>
+                </form>
+                <form action="/reset-counter" method="post" id="resetCounterForm">
+                    <button type="submit">Reset</button>
+                </form>
+            </div>
+            
+            
+            <div class="admin-section-title"><%= uniqueVisitors.length %> Unique Visitors</div>
+            <div class="admin-section-content">
+                <form action="/delete-visitors" method="POST">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Sel</th>
+                                <th>Visitor</th>
+                                <th>IP Address</th>
+                                <th>OS / browser</th>
+                                <th>Last Visit</th>
+                            </tr>
+                        </thead>
+                        <% uniqueVisitors.forEach((visitor, index) => { %>
+                            <tr class="<%= index % 2 === 0 ? 'light-row' : 'dark-row' %>">
+                                <td>
+                                    <% const checkboxId = 'checkbox-' + visitor.v_id; %>
+                                    <input type="checkbox" name="selectedVisitors" value="<%= visitor.v_id %>" id="<%= checkboxId %>">
+                                    <label for="<%= checkboxId %>"></label>
+                                </td>
+                                <td><%= visitor.v_id %></td>
+                                <td><%= visitor.ip %></td>
+                                <td><%= visitor.userAgent %></td>
+                                <td><%= formatDateTime(visitor.timestamp) %></td>
+                            </tr>
+                        <% }); %>
+                    </table>
+                    <button type="submit" onclick="{console.log('clicked')}" class="visitors-delete-button">Delete Selected</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
 
     <!-- SCRIPTS -->
     <script src="/js/navbar.js"></script>
     <script src="/js/crud.js"></script>
+    <script src="/js/adminPage.js"></script>
+
 </body>
 </html>
 

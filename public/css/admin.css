@@ -1,38 +1,88 @@
 * {
     box-sizing: border-box;
 }
-#admin {
-    background-color: #f9fafb;
+#navbar {
+    background-color: #72A0C1;
+}    
+#navbar .link-container a {
     color: black;
-    overflow-y: scroll;
+}
+#navbar .link-container a:hover{
+    color: rgb(255, 255, 255);
+    border: none;
+}
+#logout-btn {
+    color: black;
+    border: none;
+    font-weight: 400;
+}
+#logout-btn:hover {
+    border: none;
+}
+.logo {
+    display: none;
+}
+
+#admin {
+    overflow: scroll;
+    padding-top: 80px;    
+    background-color: rgb(229 231 235);
+    color: black;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+#projects, #visitors {
+    padding: 50px;
+    width: 900px;
+    background-color: #fff;
+    border-radius: 5px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.admin-section-counter {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 .admin-section-title {
     position:relative;
     width: 100%;
-    padding-left: 50px;
-    padding-bottom: 50px;
+    padding: 10px 0;
     font-size: 40px;
     font-weight: 900;
     text-align: left;
     color:#999;
 }
 .admin-section-buttons {
-    width: 90%;
+    width: 100%;
     background-color: white;
     display: flex;
-    gap: 1rem;
+    gap: 2rem;
 }
 .admin-section-buttons button:hover {
     background-color: #72A0C1;
     border: transparent;
 }
 .admin-section-content {
-    width: 90%;
-    height: 60vh;
-    overflow-y: scroll;
+    width: 100%;
+    position: relative;
+}
+.btn-group {
+    display: flex;
+    gap: 2rem;
+}
+.btn-group button:hover {
+    background-color: #72A0C1;
 }
 .manage-project {
-    padding: 30px 40px;
+    padding: 30px 0;
     background-color: white;
 }
 .form-control {
@@ -82,7 +132,7 @@ button {
 }
 
 
-/* TABLE */
+/* VISITORS TABLE */
 
 table {
     width: 100%;

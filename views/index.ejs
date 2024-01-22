@@ -13,12 +13,16 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
+    <!-- animate.css and Fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <script src="https://kit.fontawesome.com/876d4c73cd.js" crossorigin="anonymous"></script>
+    <!--CDN Font-->
+    <link href="https://fonts.cdnfonts.com/css/rovas-kiterjesztett" rel="stylesheet">
 </head>
 <body>
-    <header>
+  <header>
         <%- include('navbar', { isAuthenticated: isAuthenticated }) %>
-    </header>
+  </header>
 
   <section id="home">
     <div class="parallax-content" data-speed="0.0">
@@ -40,7 +44,9 @@
             </div> 
         </div>
         <div>
-            <a href="#about"><div class="arrow bounce"></div></a>
+            <a href="/#projects">
+                <div class="arrow bounce"><i class="fa-solid fa-chevron-down"></i></div>
+            </a>
         </div>
       </div>  
     </div>
@@ -48,23 +54,37 @@
 
   <section id="about">
     <div class="parallax-content" data-speed="0.0">
-    <div class="container">
-        <div class="about">  
-            In the digital realm, I weave code and creativity to sculpt captivating online experiences. 
-            With a love for innovation and an eye for detail, I thrive on the dynamic dance between design and functionality.
-            Explore my portfolio to discover the digital stories I've crafted.
-        </div>
-    </div>
-    </div>
-  </section>
+        <div class="container about">
+            <div class="skills">
 
-  <section id="skills">
-    <div class="parallax-content" data-speed="0.0">
-        <div class="container">
-            <div id="textwrap">
-                <div id="textblock"></div>
+                <div class="front-skills">
+                    <i class="fa-solid fa-code"></i>
+                    <h2>
+                        Creating Stylish User Interfaces
+                    </h2>
+                    <h4>
+                        Elevating user experiences through well-crafted HTML, CSS, and JavaScript
+                    </h4>
+                </div>
+                <div class="back-skills">
+                    <i class="fa-solid fa-terminal"></i>
+                    <h2>
+                        Powerful Server-Side Solutions
+                    </h2>
+                    <h4>
+                        Building robust back-end systems with expertise in server-side languages and databases.
+                    </h4>
+                </div>
+                <div class="social-skills">
+                    <i class="fa-solid fa-people-group"></i>
+                    <h2>
+                        Collaborative and Communicative
+                    </2>
+                    <h4>
+                        Beyond the code, effective communication is the key.
+                    </h4>
+                </div>
             </div>
-            <div id="skills-messages-container"> </div>
         </div>
     </div>
   </section>
@@ -72,35 +92,39 @@
   <section id="projects">
         <div class="parallax-content" data-speed="0.0">
             <div class="container">
-                <div class="carousel">
-                    <% projects.forEach(project => { %>
-                        <div class="carousel-project">
-                                <div class="project-image">
-                                    <img src="<%= project.image %>" alt="Project Image">
-                                </div>
-                                <a href="<%= project.demo %>" class="project-title shadow" target=”_blank” ><%= project.title %></a>
-                                <div class="project-description"><%= project.description %></div>
-                                <div class="stack">
-                                    <a href="<%= project.github %>" target=”_blank”>
-                                        <i class="fa-brands fa-github fa-beat-fade" style="--fa-beat-fade-opacity: 0.80; --fa-beat-fade-scale: 1.075;"></i>
-                                    </a>
-                                    <div><%= project.technologies %></div>
-                                </div>
-                        </div>
-                    <% }) %>
+                <div class="carousel" id="projects-container">
+                    <div></div>
                 </div>
             </div>
         </div>
   </section>
 
-  
   <footer>
     <%- include('footer') %>
   </footer>
 
-
-  <!-- scripts -->
   <script>
+    // CIRCLE SCROLL
+    function handleCircleScroll() {
+        const wrapper = document.querySelector('.circle-wrapper');
+        const circleElement = document.querySelector('#circleElement');
+        const scrollPosition = window.scrollY;
+        const totalScrollHeight = document.body.scrollHeight - window.innerHeight;
+        let value = (scrollPosition / totalScrollHeight) * 100;
+        const dashOffsetValue = 1100 - (value * 11);
+        circleElement.style.strokeDashoffset = dashOffsetValue;
+
+        if (scrollPosition === 0) {
+            wrapper.classList.add('hide');
+        } else {
+            wrapper.classList.remove('hide');
+        }
+    }
+    window.addEventListener('scroll', handleCircleScroll);
+    window.addEventListener('load', handleCircleScroll);
+  </script>
+  <script>
+    // PARALLAX EFFECT 
     window.addEventListener('scroll', () => {
       const scrollPos = window.scrollY;
       const parallaxElements = document.querySelectorAll('.parallax-content');
@@ -113,6 +137,7 @@
     });
   </script>
   <script>
+    //LOADS DEV`s HORRIBLE PICS
     const preloadedImages = {
         left: new Image(),
         right: new Image(),
@@ -125,17 +150,13 @@
     preloadedImages.front.src = 'images/front.webp';
     preloadedImages.down.src = 'images/down.webp';
   </script>
-  <script src="/js/smooth-scroll.js"></script>
-  <script src="/js/navbar.js"></script>
   <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
   <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
   <script type="text/javascript" src="slick/slick.min.js"></script>
+  <script src="/js/smooth-scroll.js"></script>
+  <script src="/js/navbar.js"></script>
   <script src="/js/circle.js"></script>
-  <script src="/js/skills.js"></script>
+  <script src="/js/animate.js"></script>
   <script src="/js/carousel.js"></script>
-
 </body>
 </html>
-
-
-
