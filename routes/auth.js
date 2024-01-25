@@ -83,6 +83,10 @@ router.get('/download', async (req, res) => {
     }
 });
 
+router.get('/alive', (req, res) => {
+    res.status(200).send('Server is alive');
+});
+
 async function incrementDownloadCounter() {
     // Find and update the counter document, or insert if it doesn't exist
     await Counter.updateOne(
@@ -91,7 +95,6 @@ async function incrementDownloadCounter() {
       { upsert: true }
     );
 }
-
 
 // 404 Route
 router.use((req, res) => {

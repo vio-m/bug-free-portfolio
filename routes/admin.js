@@ -18,6 +18,11 @@ router.use(async (req, res, next) => {
     const visitorIdCookie = req.cookies.visitorId;
     const visitorIdRequest = req.visitorId;
 
+    // Check if the request is to the "/alive" route, if so, skip logging
+    if (req.originalUrl === '/alive') {
+        return next();
+    }
+
     if (!visitorIdCookie && !visitorIdRequest) {
         // If there is no existing visitorId in either cookies or request, it indicates a new visitor
         const newVisitorId = generateUniqueVisitorId();
@@ -69,7 +74,6 @@ router.use(async (req, res, next) => {
 
 
 // VISITORS
-
 router.get('/admin', checkAuthenticated, async (req, res) => {
     // Fetch unique visitors from the MongoDB collection
     try {
@@ -112,7 +116,6 @@ router.get('/admin', checkAuthenticated, async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 });
-
 router.post('/delete-visitors', async (req, res) => {
     let selectedVisitorIds = req.body.selectedVisitors;
     try {
@@ -137,9 +140,10 @@ router.post('/create-counter', async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 });
+// RESET the download counter value to default (zero)
 router.post('/reset-counter', async (req, res) => {
     try {
-        // RESET the download counter value to default (zero)
+
         await Counter.updateOne(
             { _id: '65abe9061b8772f81bb0cb59' },
             { $set: { count: 0 } }
